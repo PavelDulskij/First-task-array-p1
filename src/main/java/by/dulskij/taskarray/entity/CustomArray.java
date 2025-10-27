@@ -1,5 +1,8 @@
 package by.dulskij.taskarray.entity;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class CustomArray {
     private int[] array;
     private int id;
@@ -18,5 +21,21 @@ public class CustomArray {
 
     public int[] getArray() {
         return array;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        CustomArray that = (CustomArray) o;
+        return id == that.id && Objects.deepEquals(array, that.array);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Arrays.hashCode(array), id);
     }
 }
