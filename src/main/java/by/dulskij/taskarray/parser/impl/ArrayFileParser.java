@@ -22,7 +22,7 @@ public class ArrayFileParser implements FileParser {
             throw new ArrayFormatException(String.format("%s is null or empty", line));
         }
 
-        List<String> numbers = List.of(line.split(" "));
+        List<String> numbers = List.of(line.trim().split(" "));
         List<Integer> intList = new ArrayList<>();
         for (String num : numbers) {
             if (validator.isValidLine(num)) {
