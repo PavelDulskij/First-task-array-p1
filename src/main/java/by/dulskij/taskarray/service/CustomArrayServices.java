@@ -3,9 +3,6 @@ package by.dulskij.taskarray.service;
 import by.dulskij.taskarray.entity.CustomArray;
 import by.dulskij.taskarray.exception.ArrayFormatException;
 
-import java.util.OptionalDouble;
-import java.util;
-
 public interface CustomArrayServices {
     int findMin(CustomArray array) throws ArrayFormatException;
     int findMax(CustomArray array) throws ArrayFormatException;
