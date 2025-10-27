@@ -1,5 +1,7 @@
 package by.dulskij.taskarray.entity;
 
+import by.dulskij.taskarray.exception.ArrayFormatException;
+
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -15,7 +17,10 @@ public class CustomArray {
         this.array = new int[10];
     }
 
-    public CustomArray(int[] array, int length) {
+    public CustomArray(int[] array, int length) throws ArrayFormatException {
+        if (length <= 0) {
+            throw new ArrayFormatException("invalid index format");
+        }
         this.array = new int[length];
     }
 
