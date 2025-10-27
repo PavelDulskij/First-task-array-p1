@@ -1,16 +1,17 @@
 package by.dulskij.taskarray.service;
 
 import by.dulskij.taskarray.entity.CustomArray;
+import by.dulskij.taskarray.exception.ArrayFormatException;
 
 import java.util.OptionalDouble;
-import java.util.OptionalInt;
+import java.util;
 
 public interface CustomArrayServices {
-    OptionalInt findMin(CustomArray array);
-    OptionalInt findMax(CustomArray array);
-    OptionalDouble calculateAverage(CustomArray array);
-    OptionalInt calculateSum(CustomArray array);
-    OptionalInt calculatePositive(CustomArray array);
-    OptionalInt calculateNegative(CustomArray array);
-    OptionalInt replaceByCondition(int index, CustomArray array, int oldValue, int newValue);
+    int findMin(CustomArray array) throws ArrayFormatException;
+    int findMax(CustomArray array) throws ArrayFormatException;
+    double calculateAverage(CustomArray array) throws ArrayFormatException;
+    int calculateSum(CustomArray array);
+    int calculatePositive(CustomArray array);
+    int calculateNegative(CustomArray array);
+    int[] replaceByCondition(int index, CustomArray array, int newValue) throws ArrayFormatException;
 }
