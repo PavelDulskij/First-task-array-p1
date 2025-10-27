@@ -11,7 +11,7 @@ import java.util.Collections;
 
 public class CustomArrayServicesImpl implements CustomArrayServices {
 
-    private static final Logger log = LogManager.getLogger(CustomArrayServicesImpl.class);
+    private static final Logger logger = LogManager.getLogger(CustomArrayServicesImpl.class);
 
     @Override
     public int findMin(CustomArray array) throws ArrayFormatException {
