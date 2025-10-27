@@ -17,6 +17,7 @@ public class StringFileReader implements FileReader {
     private static final Logger logger = LogManager.getLogger();
     @Override
     public List<String> readFile(String path) throws ArrayFormatException {
+        logger.log(Level.INFO, "readFile method called");
         if (path == null || path.isBlank()) {
             throw new ArrayFormatException(String.format("file name %s is null or empty", path));
         }
