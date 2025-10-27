@@ -64,7 +64,7 @@ public class CustomArrayServicesImpl implements CustomArrayServices {
         int[] arr = array.getArray();
 
         if(index < 0 || index > arr.length) {
-            throw new ArrayFormatException("Неверный индекс");
+            throw new ArrayFormatException("Incorrect index");
         }
 
         arr[index] = newValue;
