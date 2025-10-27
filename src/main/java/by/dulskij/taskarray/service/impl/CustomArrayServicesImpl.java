@@ -1,45 +1,73 @@
 package by.dulskij.taskarray.service.impl;
 
 import by.dulskij.taskarray.entity.CustomArray;
+import by.dulskij.taskarray.exception.ArrayFormatException;
 import by.dulskij.taskarray.service.CustomArrayServices;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
-import java.util.OptionalDouble;
-import java.util.OptionalInt;
+import java.util.Collections;
 
 public class CustomArrayServicesImpl implements CustomArrayServices {
+
+    private static final Logger log = LogManager.getLogger(CustomArrayServicesImpl.class);
+
     @Override
-    public OptionalInt findMin(CustomArray array) {
-        return OptionalInt.empty();
+    public int findMin(CustomArray array) throws ArrayFormatException {
+        int[] arr = array.getArray();
+        return Arrays.stream(arr)
+                .min()
+                .orElseThrow(() -> new ArrayFormatException("Array is empty"));
     }
 
     @Override
-    public OptionalInt findMax(CustomArray array) {
-        return OptionalInt.empty();
+    public int findMax(CustomArray array) throws ArrayFormatException {
+        int[] arr = array.getArray();
+        return Arrays.stream(arr)
+                .max()
+                .orElseThrow(() -> new ArrayFormatException("Array is empty"));
     }
 
     @Override
-    public OptionalDouble calculateAverage(CustomArray array) {
-        return OptionalDouble.empty();
+    public double calculateAverage(CustomArray array) throws ArrayFormatException {
+        int[] arr = array.getArray();
+        return Arrays.stream(arr)
+                .average()
+                .orElseThrow(() -> new ArrayFormatException("Array is empty"));
     }
 
     @Override
-    public OptionalInt calculateSum(CustomArray array) {
-        return OptionalInt.empty();
+    public int calculateSum(CustomArray array) {
+        int[] arr = array.getArray();
+        return Arrays.stream(arr).sum();
     }
 
     @Override
-    public OptionalInt calculatePositive(CustomArray array) {
-        return OptionalInt.empty();
+    public int calculatePositive(CustomArray array) {
+        int[] arr = array.getArray();
+        return Arrays.stream(arr)
+                .filter((n) -> n > 0)
+                .sum();
     }
 
     @Override
-    public OptionalInt calculateNegative(CustomArray array) {
-        return OptionalInt.empty();
+    public int calculateNegative(CustomArray array) {
+        int[] arr = array.getArray();
+        return Arrays.stream(arr)
+                .filter((n) -> n < 0)
+                .sum();
     }
 
     @Override
-    public OptionalInt replaceByCondition(int index, CustomArray array, int oldValue, int newValue) {
-        return OptionalInt.empty();
+    public int[] replaceByCondition(int index, CustomArray array, int newValue) throws ArrayFormatException {
+        int[] arr = array.getArray();
+
+        if(index < 0 || index > arr.length) {
+            throw new ArrayFormatException("Неверный индекс");
+        }
+
+        arr[index] = newValue;
+        return arr.clone();
     }
 }
