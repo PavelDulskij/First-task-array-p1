@@ -3,25 +3,13 @@ package by.dulskij.taskarray.entity;
 import by.dulskij.taskarray.exception.ArrayFormatException;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public class CustomArray {
     private int[] array;
     private int id;
 
-    public CustomArray(int[] array) {
+    private CustomArray(int[] array) {
         this.array = array.clone();
-    }
-
-    public CustomArray() {
-        this.array = new int[10];
-    }
-
-    public CustomArray(int[] array, int length) throws ArrayFormatException {
-        if (length <= 0) {
-            throw new ArrayFormatException("invalid index format");
-        }
-        this.array = new int[length];
     }
 
     public int[] getArray() {
@@ -32,15 +20,50 @@ public class CustomArray {
         return id;
     }
 
+    public static class Builder {
+        private int[] array;
+        private int id;
+
+        public Builder setArray(int[] array) {
+            this.array = array != null ? array.clone() : new int[0];
+            return this;
+        }
+
+        public Builder setId(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public CustomArray build() throws ArrayFormatException {
+            if (array == null || array.length == 0) {
+                throw new ArrayFormatException("Array cannot be null or empty");
+            }
+            CustomArray customArray = new CustomArray(array);
+            customArray.id = this.id;
+            return customArray;
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
+
         CustomArray that = (CustomArray) o;
-        return id == that.id && Objects.deepEquals(array, that.array);
+        return id == that.id && Arrays.equals(array, that.array);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Arrays.hashCode(array), id);
+        int result = Arrays.hashCode(array);
+        result = 31 * result + id;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomArray{" +
+                "array=" + Arrays.toString(array) +
+                ", id=" + id +
+                '}';
     }
 }
