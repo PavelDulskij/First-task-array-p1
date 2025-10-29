@@ -43,4 +43,19 @@ class ArrayFileReaderTest {
             List<String> lines = reader.readFile(path);
         });
     }
+
+    @Test
+    void emptyLinesShouldReturnListOFEmptyLines() throws ArrayFormatException, IOException {
+        ArrayFileReader reader = new ArrayFileReaderImpl() ;
+        String testFilePath = "data/testData.txt";
+
+        List<String> expected = List.of("", "", "", "", "", "", "", "");
+        Files.write(Paths.get(testFilePath), expected);
+
+        List<String> actual = reader.readFile(testFilePath);
+
+        assertLinesMatch(expected, actual);
+
+        Files.delete(Paths.get(testFilePath));
+    }
 }
