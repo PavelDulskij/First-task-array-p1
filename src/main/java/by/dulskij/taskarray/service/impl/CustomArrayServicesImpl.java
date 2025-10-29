@@ -38,29 +38,38 @@ public class CustomArrayServicesImpl implements CustomArrayServices {
     }
 
     @Override
-    public int calculateSum(CustomArray array) {
+    public int calculateSum(CustomArray array) throws ArrayFormatException{
+        checkArrayLength(array);
+
         int[] arr = array.getArray();
-        return Arrays.stream(arr).sum();
+        return Arrays.stream(arr)
+                .sum();
     }
 
     @Override
-    public int calculatePositive(CustomArray array) {
+    public long calculatePositiveCount(CustomArray array) throws ArrayFormatException{
+        checkArrayLength(array);
+
         int[] arr = array.getArray();
         return Arrays.stream(arr)
                 .filter((n) -> n > 0)
-                .sum();
+                .count();
     }
 
     @Override
-    public int calculateNegative(CustomArray array) {
+    public long calculateNegativeCount(CustomArray array) throws ArrayFormatException{
+        checkArrayLength(array);
+
         int[] arr = array.getArray();
         return Arrays.stream(arr)
                 .filter((n) -> n < 0)
-                .sum();
+                .count();
     }
 
     @Override
     public int[] replaceByCondition(int index, CustomArray array, int newValue) throws ArrayFormatException {
+        checkArrayLength(array);
+
         int[] arr = array.getArray();
 
         if(index < 0 || index > arr.length) {
@@ -69,5 +78,11 @@ public class CustomArrayServicesImpl implements CustomArrayServices {
 
         arr[index] = newValue;
         return arr.clone();
+    }
+
+    private void checkArrayLength(CustomArray array) throws ArrayFormatException{
+        if (array.getArray().length == 0) {
+            throw new ArrayFormatException("Array is empty");
+        }
     }
 }
