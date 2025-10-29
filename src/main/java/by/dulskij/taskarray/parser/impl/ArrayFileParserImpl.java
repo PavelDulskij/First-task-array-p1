@@ -19,9 +19,6 @@ public class ArrayFileParserImpl implements ArrayFileParser {
     @Override
     public CustomArray parseLine(String line) throws ArrayFormatException {
         logger.info("Parsing line: {}", line);
-        if (line == null || line.isBlank()) {
-            throw new ArrayFormatException(String.format("%s is null or empty", line));
-        }
 
         List<String> numbers = List.of(line.trim().split(SPACE_DELIMITER_REGEX));
         List<Integer> intList = new ArrayList<>();
