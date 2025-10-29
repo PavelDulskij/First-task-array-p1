@@ -24,7 +24,10 @@ class ArrayFileParserTest {
         ArrayFileParser parser = new ArrayFileParserImpl();
         CustomArray array = parser.parseLine("1e 2x 3y 4few ,,jh5");
 
-        assertEquals(0, array.getArray().length);
+        int[] expected = new int[]{};
+        int[] actual = array.getArray();
+
+        assertArrayEquals(expected, actual);
     }
 
     @Test
