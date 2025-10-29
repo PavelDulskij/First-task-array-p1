@@ -35,9 +35,6 @@ public class CustomArray {
         }
 
         public CustomArray build() throws ArrayFormatException {
-            if (array == null || array.length == 0) {
-                throw new ArrayFormatException("Array cannot be null or empty");
-            }
             CustomArray customArray = new CustomArray(array);
             customArray.id = this.id;
             return customArray;
