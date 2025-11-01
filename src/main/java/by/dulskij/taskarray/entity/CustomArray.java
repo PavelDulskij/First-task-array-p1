@@ -3,6 +3,7 @@ package by.dulskij.taskarray.entity;
 import by.dulskij.taskarray.exception.ArrayFormatException;
 
 import java.util.Arrays;
+import java.util.Observable;
 
 public class CustomArray {
     private int[] array;
