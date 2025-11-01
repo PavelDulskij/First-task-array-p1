@@ -22,9 +22,9 @@ class ArrayFileParserTest {
     @Test
     void whenParseInvalidLineThenReturnEmptyArray() throws ArrayFormatException {
         ArrayFileParser parser = new ArrayFileParserImpl();
-        CustomArray array = parser.parseLine("1e 2x 3y 4few ,,jh5");
+        CustomArray array = parser.parseLine("1t 2e 3y 4few ,,jh5");
 
-        int[] expected = new int[]{};
+        int[] expected = new int[]{1, 2};
         int[] actual = array.getArray();
 
         assertArrayEquals(expected, actual);
