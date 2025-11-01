@@ -10,28 +10,29 @@ import java.util.Arrays;
 
 public class StreamCustomArrayServiceImpl implements CustomArrayService {
 
-    private static final Logger logger = LogManager.getLogger(StreamCustomArrayServiceImpl.class);
-
     @Override
     public int findMin(CustomArray array) throws ArrayFormatException {
-        int[] arr = array.getArray();
-        return Arrays.stream(arr)
+        checkArrayLength(array);
+
+        return Arrays.stream(array.getArray())
                 .min()
                 .orElseThrow(() -> new ArrayFormatException("Array is empty"));
     }
 
     @Override
     public int findMax(CustomArray array) throws ArrayFormatException {
-        int[] arr = array.getArray();
-        return Arrays.stream(arr)
+        checkArrayLength(array);
+
+        return Arrays.stream(array.getArray())
                 .max()
                 .orElseThrow(() -> new ArrayFormatException("Array is empty"));
     }
 
     @Override
     public double calculateAverage(CustomArray array) throws ArrayFormatException {
-        int[] arr = array.getArray();
-        return Arrays.stream(arr)
+        checkArrayLength(array);
+
+        return Arrays.stream(array.getArray())
                 .average()
                 .orElseThrow(() -> new ArrayFormatException("Array is empty"));
     }
@@ -40,8 +41,7 @@ public class StreamCustomArrayServiceImpl implements CustomArrayService {
     public int calculateSum(CustomArray array) throws ArrayFormatException{
         checkArrayLength(array);
 
-        int[] arr = array.getArray();
-        return Arrays.stream(arr)
+        return Arrays.stream(array.getArray())
                 .sum();
     }
 
@@ -49,8 +49,7 @@ public class StreamCustomArrayServiceImpl implements CustomArrayService {
     public long calculatePositiveCount(CustomArray array) throws ArrayFormatException{
         checkArrayLength(array);
 
-        int[] arr = array.getArray();
-        return Arrays.stream(arr)
+        return Arrays.stream(array.getArray())
                 .filter((n) -> n > 0)
                 .count();
     }
@@ -59,8 +58,7 @@ public class StreamCustomArrayServiceImpl implements CustomArrayService {
     public long calculateNegativeCount(CustomArray array) throws ArrayFormatException{
         checkArrayLength(array);
 
-        int[] arr = array.getArray();
-        return Arrays.stream(arr)
+        return Arrays.stream(array.getArray())
                 .filter((n) -> n < 0)
                 .count();
     }
