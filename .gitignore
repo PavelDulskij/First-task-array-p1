@@ -40,3 +40,4 @@ bin/
 ### Mac OS ###
 .DS_Store
 *.class
+target/classes/log4j2.xml
