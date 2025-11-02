@@ -3,8 +3,6 @@ package by.dulskij.taskarray.service.impl;
 import by.dulskij.taskarray.entity.CustomArray;
 import by.dulskij.taskarray.exception.ArrayFormatException;
 import by.dulskij.taskarray.service.CustomArrayService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
 
