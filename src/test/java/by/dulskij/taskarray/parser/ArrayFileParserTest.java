@@ -2,42 +2,137 @@ package by.dulskij.taskarray.parser;
 
 import by.dulskij.taskarray.entity.CustomArray;
 import by.dulskij.taskarray.exception.ArrayFormatException;
-import by.dulskij.taskarray.parser.impl.ArrayFileParserImpl;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ArrayFileParserTest {
+class CustomArrayTest {
+
     @Test
-    void whenParseLineThenReturnNewArray() throws ArrayFormatException {
-        ArrayFileParser parser = new ArrayFileParserImpl();
+    void whenCreateArrayThenReturnNewArray() throws ArrayFormatException {
+        int[] inputArray = {1, 2, 3, 4, 5};
+        CustomArray customArray = new CustomArray.Builder()
+                .setArray(inputArray)
+                .setId(1)
+                .build();
 
-        CustomArray array = parser.parseLine("    1 2   3    4 5   6 7 4");
-        int[] actual = array.getArray();
-        int[] expected = new int[]{1, 2, 3, 4, 5, 6, 7, 4};
-
-        assertArrayEquals(expected,actual);
+        assertArrayEquals(inputArray, customArray.getArray());
+        assertEquals(1, customArray.getId());
     }
 
     @Test
-    void whenParseInvalidLineThenReturnEmptyArray() throws ArrayFormatException {
-        ArrayFileParser parser = new ArrayFileParserImpl();
-        CustomArray array = parser.parseLine("1t 2e 3y 4few ,,jh5");
+    void whenArrayIsNullThenReturnEmptyArray() throws ArrayFormatException {
+        CustomArray customArray = new CustomArray.Builder()
+                .setArray(null)
+                .setId(2)
+                .build();
 
-        int[] expected = new int[]{1, 2};
-        int[] actual = array.getArray();
-
-        assertArrayEquals(expected, actual);
+        assertArrayEquals(new int[0], customArray.getArray());
     }
 
     @Test
-    void whenParseEmptyLineThenReturnEmptyArray() throws ArrayFormatException {
-        ArrayFileParser parser = new ArrayFileParserImpl();
-        CustomArray array = parser.parseLine("");
+    void whenCompareEqualArraysThenReturnTrue() throws ArrayFormatException {
+        CustomArray array1 = new CustomArray.Builder()
+                .setArray(new int[]{1, 2, 3})
+                .setId(1)
+                .build();
 
-        int[] expected = new int[]{};
-        int[] actual = array.getArray();
+        CustomArray array2 = new CustomArray.Builder()
+                .setArray(new int[]{1, 2, 3})
+                .setId(1)
+                .build();
 
-        assertArrayEquals(expected, actual);
+        assertEquals(array1, array2);
+    }
+
+    @Test
+    void whenCompareDifferentArraysThenReturnFalse() throws ArrayFormatException {
+        CustomArray array1 = new CustomArray.Builder()
+                .setArray(new int[]{1, 2, 3})
+                .setId(1)
+                .build();
+
+        CustomArray array2 = new CustomArray.Builder()
+                .setArray(new int[]{4, 5, 6})
+                .setId(2)
+                .build();
+
+        assertNotEquals(array1, array2);
+    }
+
+    @Test
+    void whenCloneArrayThenOriginalIsUnchanged() throws ArrayFormatException {
+        int[] inputArray = {10, 20, 30};
+        CustomArray customArray = new CustomArray.Builder()
+                .setArray(inputArray)
+                .setId(3)
+                .build();
+
+        inputArray[0] = 100;
+        assertArrayEquals(new int[]{10, 20, 30}, customArray.getArray());
+    }
+
+    @Test
+    void whenToStringCalledThenReturnStringRepresentation() throws ArrayFormatException {
+        CustomArray customArray = new CustomArray.Builder()
+                .setArray(new int[]{7, 8, 9})
+                .setId(4)
+                .build();
+
+        assertEquals("CustomArray{array=[7, 8, 9], id=4}", customArray.toString());
+    }
+
+    @Test
+    void whenEqualArraysThenHashesShouldBeEqual() throws ArrayFormatException {
+        CustomArray array1 = new CustomArray.Builder()
+                .setArray(new int[]{1, 2, 3})
+                .setId(1)
+                .build();
+
+        CustomArray array2 = new CustomArray.Builder()
+                .setArray(new int[]{1, 2, 3})
+                .setId(1)
+                .build();
+
+        assertEquals(array1, array2);
+        assertEquals(array1.hashCode(), array2.hashCode());
+    }
+
+    @Test
+    void whenDifferentArraysThenHashesShouldNotBeEqual() throws ArrayFormatException {
+        CustomArray array1 = new CustomArray.Builder()
+                .setArray(new int[]{1, 2, 3})
+                .setId(1)
+                .build();
+
+        CustomArray array2 = new CustomArray.Builder()
+                .setArray(new int[]{4, 5, 6})
+                .setId(2)
+                .build();
+
+        assertNotEquals(array1, array2);
+        assertNotEquals(array1.hashCode(), array2.hashCode());
+    }
+
+    @Test
+    void whenSameObjectThenEqualAndHashCodeShouldMatch() throws ArrayFormatException {
+        CustomArray array = new CustomArray.Builder()
+                .setArray(new int[]{7, 8, 9})
+                .setId(3)
+                .build();
+
+        assertEquals(array, array);
+        assertEquals(array.hashCode(), array.hashCode());
+    }
+
+    @Test
+    void whenDifferentObjectTypeThenNotEqual() throws ArrayFormatException {
+        CustomArray array = new CustomArray.Builder()
+                .setArray(new int[]{1, 2, 3})
+                .setId(1)
+                .build();
+
+        String notAnArray = "Not a CustomArray Object";
+        assertNotEquals(array, notAnArray);
     }
 }
