@@ -129,7 +129,7 @@ class CustomArrayTest {
                 .setId(1)
                 .build();
 
-        String notAnArray = "Not a CustomArray Object";
+        String notAnArray = "some string";
         assertNotEquals(array, notAnArray);
     }
 }
