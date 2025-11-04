@@ -89,6 +89,7 @@ class CustomArrayRepositoryTest {
                 .build();
 
         repository.addArray(array);
-        assertEquals(0, repository.query(new IdCustomArraySpecification(2)).size(), "Should return an empty list for non-matching ID");
+        assertEquals(0, repository.query(new IdCustomArraySpecification(2)).size(), 
+                "Should return an empty list for non-matching ID");
     }
 }
