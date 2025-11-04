@@ -1,13 +1,15 @@
 package by.dulskij.taskarray.entity;
 
 import by.dulskij.taskarray.exception.ArrayFormatException;
+import by.dulskij.taskarray.observer.CustomArrayObservable;
+import by.dulskij.taskarray.observer.CustomArrayObserver;
 
 import java.util.Arrays;
-import java.util.Observable;
 
-public class CustomArray {
+public class CustomArray implements CustomArrayObservable {
     private int[] array;
     private int id;
+    private CustomArrayObserver observer;
 
     private CustomArray(int[] array) {
         this.array = array.clone();
@@ -43,6 +45,23 @@ public class CustomArray {
     }
 
     @Override
+    public void addObserver(CustomArrayObserver observer) throws ArrayFormatException {
+        this.observer = observer;
+    }
+
+    @Override
+    public void removeObserver(CustomArrayObserver observer) throws ArrayFormatException {
+        this.observer = null;
+    }
+
+    @Override
+    public void notifyObservers(CustomArrayObserver observer) throws ArrayFormatException {
+        if (observer != null) {
+            observer.update(this);
+        }
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -59,9 +78,17 @@ public class CustomArray {
 
     @Override
     public String toString() {
-        return "CustomArray{" +
-                "array=" + Arrays.toString(array) +
-                ", id=" + id +
-                '}';
+        final StringBuilder sb = new StringBuilder("CustomArray{");
+        sb.append("array=");
+        if (array == null) sb.append("null");
+        else {
+            sb.append('[');
+            for (int i = 0; i < array.length; ++i)
+                sb.append(i == 0 ? "" : ", ").append(array[i]);
+            sb.append(']');
+        }
+        sb.append(", id=").append(id);
+        sb.append('}');
+        return sb.toString();
     }
 }
