@@ -13,10 +13,12 @@ public class CustomArrayObserverImp implements CustomArrayObserver {
     @Override
     public void update(CustomArray array) throws ArrayFormatException{
         CustomArrayService service = new StreamCustomArrayServiceImpl();
+
         int min = service.findMin(array);
         int max = service.findMax(array);
         double avg = service.calculateAverage(array);
         int sum = service.calculateSum(array);
+
         CustomArrayParameters parameters = new CustomArrayParameters(min, max, avg, sum);
         warehouse.put(array.getId(), parameters);
     }
