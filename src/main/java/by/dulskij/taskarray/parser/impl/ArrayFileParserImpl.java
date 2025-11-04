@@ -13,13 +13,12 @@ import java.util.List;
 
 public class ArrayFileParserImpl implements ArrayFileParser {
     private static final Logger logger = LogManager.getLogger();
-    private final LineValidator validator = new LineValidatorImpl();
     private static final String SPACE_DELIMITER_REGEX = "\\s+";
 
     @Override
     public CustomArray parseLine(String line) throws ArrayFormatException {
+        final LineValidator validator = new LineValidatorImpl();
         logger.info("Parsing line: {}", line);
-
         List<String> numbers = List.of(line.trim().split(SPACE_DELIMITER_REGEX));
         List<Integer> intList = new ArrayList<>();
         for (String num : numbers) {
